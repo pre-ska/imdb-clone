@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   API_URL,
   API_KEY,
   IMAGE_BASE_URL,
   POSTER_SIZE,
-  BACKDROP_SIZE
+  BACKDROP_SIZE,
 } from "../../config";
 import "./Home.css";
 import HeroImage from "../elements/HeroImage/HeroImage";
@@ -28,13 +28,19 @@ class Home extends React.Component {
     loading: false,
     currentPage: 0,
     totalPages: 0,
-    searchTerm: ""
+    searchTerm: "",
   };
 
   componentDidMount() {
-    this.setState({ loading: true });
-    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-    this.fetchItems(endpoint);
+    const tmp = localStorage.getItem("HomeState");
+    if (tmp) {
+      const state = JSON.parse(tmp);
+      this.setState({ ...state });
+    } else {
+      this.setState({ loading: true });
+      const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+      this.fetchItems(endpoint);
+    }
   }
 
   searchItems = searchTerm => {
@@ -43,7 +49,7 @@ class Home extends React.Component {
     this.setState({
       movies: [],
       loading: true,
-      searchTerm
+      searchTerm,
     });
 
     if (searchTerm === "") {
@@ -59,8 +65,9 @@ class Home extends React.Component {
     this.setState({ loading: true });
 
     if (this.state.searchTerm === "") {
-      endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${this
-        .state.currentPage + 1}`;
+      endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${
+        this.state.currentPage + 1
+      }`;
     } else {
       endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${
         this.state.searchTerm
@@ -73,14 +80,24 @@ class Home extends React.Component {
     fetch(endpoint)
       .then(result => result.json())
       .then(result => {
-        this.setState({
-          movies: [...this.state.movies, ...result.results],
-          heroImage: result.results[0],
-          // heroImage: this.state.heroImage || result.results[0],
-          loading: false,
-          currentPage: result.page,
-          totalPages: result.total_pages
-        });
+        let heroTmp =
+          this.state.searchTerm === ""
+            ? this.state.heroImage || result.results[0]
+            : result.results[0];
+        this.setState(
+          {
+            movies: [...this.state.movies, ...result.results],
+            heroImage: heroTmp,
+            // heroImage: this.state.heroImage || result.results[0],
+            loading: false,
+            currentPage: result.page,
+            totalPages: result.total_pages,
+          },
+          () => {
+            if (this.state.searchTerm === "")
+              localStorage.setItem("HomeState", JSON.stringify(this.state));
+          }
+        );
       })
       .catch(error => console.error("Error:", error));
   };
@@ -92,7 +109,7 @@ class Home extends React.Component {
       searchTerm,
       loading,
       currentPage,
-      totalPages
+      totalPages,
     } = this.state;
 
     return (

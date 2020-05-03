@@ -10,10 +10,10 @@
 
 @keyframes animateMovieinfo {
   from {
-      opacity:0;
+    opacity: 0;
   }
   to {
-      opacity:1;
+    opacity: 1;
   }
 }
 
@@ -24,6 +24,7 @@
   margin: 0 auto;
   background: rgb(0, 0, 0, 0.7);
   position: relative;
+  backdrop-filter: blur(8px);
 }
 
 .rmdb-movieinfo-thumb {
@@ -47,8 +48,8 @@
 }
 
 .rmdb-movieinfo-text h1 {
-  font-family: 'Abel', sans-serif;
-  font-size:48px;
+  font-family: "Abel", sans-serif;
+  font-size: 48px;
   margin: 0;
 }
 
@@ -59,13 +60,13 @@
 }
 
 .rmdb-movieinfo-text p {
-  font-family: 'Abel', sans-serif;
+  font-family: "Abel", sans-serif;
   font-size: 18px;
   line-height: 26px;
 }
 
 .rmdb-rating {
-  width: 250px;
+  /* width: 100%; */
   height: 20px;
   margin-top: 20px;
   position: relative;
@@ -74,8 +75,16 @@
 .rmdb-score {
   position: absolute;
   margin: 0;
-  right: 0px;
+  left: 220px;
   top: -3px;
+}
+
+.rmdb-vote-count {
+  float: left;
+  /* position: absolute;
+  margin: 0;
+  right: 0px;
+  top: -3px; */
 }
 
 .rmdb-director {
@@ -90,8 +99,8 @@
 }
 
 meter::-webkit-meter-bar {
-  background: #FFF;
-  width:200px;
+  background: #fff;
+  width: 200px;
 }
 meter::-webkit-meter-optimum-value {
   background: linear-gradient(to bottom, #16d47b);
@@ -101,4 +110,13 @@ meter::-webkit-meter-suboptimum-value {
 }
 meter::-webkit-meter-even-less-good-value {
   background: linear-gradient(to bottom, #ee5f5b);
+}
+
+.mojLogo {
+  background: url("/images/mojlogo.png");
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 122px;
+  height: 104px;
 }
