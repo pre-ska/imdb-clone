@@ -2,7 +2,7 @@
 
 [DEMO](https://movies-app-react.web.app/)
 
-##### Post images of your visited places, with support of Google Maps
+##### Movie database
 
 <p align="center">
   <img width="833" height="411" src="https://i.imgur.com/m3eAtnV.png">
