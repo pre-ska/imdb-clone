@@ -2,7 +2,7 @@
 
 [DEMO](https://movies-app-react.web.app/)
 
-##### Movie database
+##### Movies database
 
 <p align="center">
   <img width="833" height="411" src="https://i.imgur.com/m3eAtnV.png">
