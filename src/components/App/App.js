@@ -7,10 +7,13 @@ import NotFound from "../elements/NotFound.js/NotFound";
 import Movie from "../Movie/Movie";
 
 const App = () => {
+  const reload = () => {
+    window.location.reload(false);
+  };
   return (
     <BrowserRouter>
       <>
-        <Header />
+        <Header reload={reload} />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/:movieId" component={Movie} />
